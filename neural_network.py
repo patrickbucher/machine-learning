@@ -24,5 +24,7 @@ for label in training_data['Label'].unique():
     y = entries['Height']
     plt.scatter(x, y, label=label_sports[label])
 plt.legend()
+plt.xlabel('Weight [kg]')
+plt.ylabel('Height [m]')
 
 plt.savefig('train.png')

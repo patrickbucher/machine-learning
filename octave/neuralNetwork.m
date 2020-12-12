@@ -53,3 +53,30 @@ a2 = sigmoid(z2);
 a2bias = addBias(a2);
 z3 = a2bias * Theta2';
 a3 = sigmoid(z3);
+
+% delta3: difference of last activation to labels
+delta3 = a3 - y;
+
+% delta2: back propagation, discard delta for bias unit
+delta2 = delta3 * Theta2 .* a2bias .* (1 - a2bias);
+delta2 = delta2(:,2:size(delta2)(2));
+
+% no delta for input -> no d1
+
+% capital Deltas
+Delta2 = a2' * delta3;
+Delta3 = a1' * delta2;
+
+D2 = zeros(size(Delta2));
+D3 = zeros(size(Delta3));
+
+[rows, cols] = size(Delta3);
+for i = 1:rows
+    for j = 1:cols
+        % no regularization
+        D3(i,j) = (1/m) .* Delta3(i,j);
+    end
+end
+D3
+
+% TODO: implement gradient checking

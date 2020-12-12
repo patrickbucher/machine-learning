@@ -20,10 +20,36 @@ m = length(X);
 n = length(unique(Y));
 
 % one-hot encode labels
-y = zeros(m, n)
+y = zeros(m, n);
 for i = 1:(max(Y)+1)
     y(:,i) = (Y == (i-1));
 end
 
-X
-y
+% neural network: L=3, K=5
+% input   hidden  output
+%         (+1)
+%         (a2_1)    (  )
+% (+1)    (a2_2)    (  )
+% (x1)    (a2_3)    (  )
+% (x2)    (a2_4)    (  )
+%         (a2_5)    (  )
+%         (a2_6)
+
+% input -> hidden: 3 inputs, 6 outputs; symmetric
+Theta1 = rand(6, 3);
+Theta1 = Theta1 * 2 - 1;
+
+% hidden -> output: 7 inputs, 5 outputs; symmetric
+Theta2 = rand(5, 7);
+Theta2 = Theta2 * 2 - 1;
+
+% first activation: input with bias unit
+a1 = addBias(X);
+
+% second activation: hidden layer
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+
+a2bias = addBias(a2);
+z3 = a2bias * Theta2';
+a3 = sigmoid(z3);

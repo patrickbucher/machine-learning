@@ -64,19 +64,17 @@ delta2 = delta2(:,2:size(delta2)(2));
 % no delta for input -> no d1
 
 % capital Deltas
-Delta2 = a2' * delta3;
-Delta3 = a1' * delta2;
+Delta1 = delta2' * a1;
+Delta2 = delta3' * a2bias;
 
-D2 = zeros(size(Delta2));
-D3 = zeros(size(Delta3));
+Delta1 = (1/m) .* Delta1; % TODO: add regularization for j != 0
+Delta2 = (1/m) .* Delta2; % TODO: add regularization for j != 0
 
-[rows, cols] = size(Delta3);
-for i = 1:rows
-    for j = 1:cols
-        % no regularization
-        D3(i,j) = (1/m) .* Delta3(i,j);
-    end
-end
-D3
+ThetaVec = [Theta1(:); Theta2(:)];
+DeltaVec = [Delta1(:); Delta2(:)];
 
+
+% TODO: add regularization
+% TODO: implement cost function
 % TODO: implement gradient checking
+% TODO: figure out how to make a prediction

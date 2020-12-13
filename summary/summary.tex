@@ -1,0 +1,255 @@
+\documentclass[a4paper,11pt]{scrartcl}
+
+\usepackage{fontspec}
+    \setmainfont{Liberation Serif}
+    \setsansfont{Liberation Sans}
+    \setmonofont{Liberation Mono}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\author{Patrick Bucher}
+\title{Machine Learning}
+\subtitle{Personal Formula Collection}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\section{Linear Regression}
+
+\subsection{One Variable}
+
+Prediction:
+
+$$ y = h(x) = \theta_0 + \theta_1 x = \theta^T x $$
+
+Cost Function (Squared Error):
+
+$$ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
+
+Gradient Descent:
+
+$$ \theta = \theta - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)} $$
+
+\subsection{Multiple Variables}
+
+Prediction:
+
+$$ y = h(x) = \theta_0 + \theta_1 x_1 = + \dots + \theta_n x_n = \theta^T x $$
+
+Cost Function:
+
+$$ J(\theta_j) = \frac{1}{2m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}_j) - y^{(i)}_j)^2 $$
+
+Gradient Descent:
+
+$$ \theta_j = \theta_j - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)}_j, j := 0 \dots n $$
+
+An additional feature $x_0=1$ is introduced, so that the vector $x$ becomes $n+1$ dimensional, which simplifies the matrix calculations.
+
+\medskip
+
+Normal Equation:
+
+$$ \theta = (X^T X)^{-1} X^T y $$
+
+Octave (Complexity with $n$ features: $O(n^3)$):
+
+\begin{verbatim}
+theta = pinv(X'*X)*X'*y
+\end{verbatim}
+
+\subsection{Normalization}
+
+$$ x_i = \frac{x_i - \mu_i}{s_i} $$
+
+Octave:
+
+\begin{verbatim}
+X = (X - mean(X)) ./ std(X)
+\end{verbatim}
+
+\section{Classification}
+
+Binary Classification: $y \in \{0, 1\}$, where 0 signifies negative or absent, and 1 signifies positive or present.
+
+\subsection{Logistic Regression}
+
+$$ 0 \leq h_{\theta(x)} \leq 1 $$
+
+Sigmoid Activation Function $g$ (with asymptotes at $y$ 0 and 1, to be interpreted as probabilities):
+
+$$ h_{\theta} = g(\theta^{T}x), g(z) = \frac{1}{1 + e^{-z}} $$
+
+$$ h_{\theta}(x) = \frac{1}{1+e^{-\theta^{T}x}} $$
+
+Cost Function: $-log(h_{\theta}(x))$ for $y=1$ and $-log(1-h_{\theta}(x))$ for $y=0$, combined:
+
+$$ C(h_{\theta}(x),y) = -y \cdot log(h_{\theta}(x)) - (1-y) \cdot log(1-h_{\theta}(x)) $$
+
+$$ J(\theta)=\frac{1}{m} \sum^m_{i=1} C(h_{\theta}(x^{(i)}),y^{(i)}) $$
+
+With maximum likelihood estimation:
+
+$$ J(\theta) = \frac{1}{m} \Bigg[ \sum^m_{i=1} y^{(i)} \cdot log (h_{\theta}(x^{(i)})) + (1-y^{(i)}) \cdot log (1 - h_{\theta}(x^{(i)})) \Bigg] $$
+
+Prediction:
+
+$$ h_{\theta}(x) = \frac{1}{1 + e^{-\theta^{T}x}} $$
+
+Gradient Descent (for each $j$ in $\theta$):
+
+$$ \theta_j := \theta_j - \frac{\alpha}{m} \sum^m_{i=1} (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)}_j $$
+
+Vectorized:
+
+$$ \theta := \theta - \frac{\alpha}{m} \sum^m_{i=1} \Bigg[ (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)} \Bigg] $$
+
+$$ \theta := \theta - \frac{\alpha}{m} X^T(g(X\theta)-\vec{y}) $$
+
+\subsubsection{Regularization (Gradient Descent)}
+
+Regularization mitigates the problem of overfitting for higher-order polynomials.
+
+Regularization term (only regularize $\theta_j$ for $j \geq 1$, but not $\theta_0$):
+
+$$ \lambda \sum_{j=1}^m \theta_j^2 $$
+
+Regularized Cost Function:
+
+$$ J(\theta) = \frac{1}{m} \Bigg[ \sum^m_{i=1} y^{(i)} \cdot log (h_{\theta}(x^{(i)})) + (1-y^{(i)}) \cdot log (1 - h_{\theta}(x^{(i)})) \Bigg] + \frac{\lambda}{2m} \sum_{j=1}^n \theta_j^2 $$
+
+Regularized Gradient Descent (for $\theta_j$ with $j \geq 1$):
+
+$$ \theta_0 := \theta_0 - \alpha \Bigg[\frac{1}{m} \sum^m_{i=1} (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)}_j \Bigg] $$
+
+$$ \theta_j := \theta_j - \alpha \Bigg[\frac{1}{m} \sum^m_{i=1} \Big( (h_{\theta}(x^{(i)}) - y^{(i)}) x^{(i)}_j \Big) + \frac{\lambda}{m}\theta_j \Bigg] $$
+
+\subsubsection{Regularization (Normal Equation)}
+
+To regularize using the normal equation, $(n+1)(n+1)$ matrix $L$ with $i$ rows and $j$ columns and the values 1 (for $i=j \land i \geq 1 \land j \geq 1$) and 0 (all the other indices), respectively, has to be created. (This is an identity matrix of size $n+1$ with the value at $(0,0)$ set to 0.)
+
+$$ \theta = (X^TX+\lambda L)^{-1}X^Ty $$
+
+With regularization, the matrix is always inversible.
+
+\section{Neural Networks}
+
+Definitions:
+
+\begin{itemize}
+    \item $x_0$: bias unit
+    \item $a_i^{(j)}$: activation unit $i$ of layer $j$
+    \item $\Theta^{(j)}$: weight matrix between layer $j$ and $j+1$
+\end{itemize}
+
+Given layer $j$ with $s_j$ units, and layer $j+1$ with $s_{j+1}$ units, the matrix $\Theta^{(j)}$ has the dimensions $s_{j+1}\times(s_{j}+1)$.
+
+\subsection{Activation}
+
+Neural network with three units in the one hidden layer:
+
+$$ a_1^{(2)} = g(\Theta^{(1)}_{10}x_0 + \Theta^{(1)}_{11}x_1 + \dots) $$
+$$ a_2^{(2)} = g(\Theta^{(2)}_{20}x_0 + \Theta^{(2)}_{21}x_1 + \dots) $$
+$$ a_3^{(2)} = g(\Theta^{(3)}_{30}x_0 + \Theta^{(3)}_{31}x_1 + \dots) $$
+$$ h_{\Theta}(x) = a_1^3 = g(\Theta^{(2)}_{10}a^{(2)}_0 + \Theta^{(2)}_{11}a^{(2)}_1 + \dots)$$
+
+\subsubsection{Vectorization}
+
+With (forward propagation):
+
+$$ a^{(2)}_1 = g(\Theta^{(1)}_{10}x_0 + \Theta^{(1)}_{11}x_1 + \Theta^{(1)}_{12}x_2 + \Theta^{(1)}_{13}x_3) $$
+
+And:
+
+$$ z^{(2)}_1 = \Theta^{(1)}_{10}x_0 + \Theta^{(1)}_{11}x_1 + \Theta^{(1)}_{12}x_2 + \Theta^{(1)}_{13}x_3 $$
+
+Follows:
+
+$$ a^{(2)}_1 = g(z^{(2)}_1) $$
+
+So that:
+
+$$ z^{(2)} = \Theta^{(1)} x = \Theta^{(1)} a^{(1)} $$
+
+Output layer:
+
+$$ h_{\Theta} = a^{(3)} = g(z^{(3)}) $$
+
+\subsection{Cost Function}
+
+$$ J(\Theta) = -\frac{1}{m} \Bigg[ \sum^{m}_{i=1} \sum^{K}_{k=1} y^{(i)}_k log(h_{\Theta}(x^{(i)}))_{k} + (1-y^{(i)}_k) log(1-(h_{\Theta}(x^{(i)}))_k  \Bigg] + \frac{\lambda}{2m} \sum^{L-1}_{l=1} \sum^{s_l}_{i=1} \sum^{s_{l+1}}_{j=1} (\Theta^{(l)}_{ji})^2 $$
+
+With $(h_{\Theta}(x))_i$ being the $i^{th}$ output. Note that regularization is \textit{not} added to the bias unit, i.e. only for $j \geq 1$.
+
+\subsection{Forward Propagation}
+
+With a single training example $(x,y)$. The first activation is the input (a bias unit $a^{(1)}_0=1$ must be added before):
+
+$$ a^{(1)} = x $$
+
+The second activation is computed using $\Theta$ and the sigmoid function $g(z)$:
+
+$$ z^{(2)} = \Theta^{(2)} a^{(2)} $$
+$$ a^{(2)} = g(z^{(2)}) $$
+
+The bias unit $a^{(2)}_0=1$ must be added again, then the further activations ($l$) are computed:
+
+$$ z^{(l)} = \Theta^{(l)} a^{(l)} $$
+$$ a^{(l)} = g(z^{(l)}) $$
+
+Finally, the output (layer $L$) is computed:
+
+$$ z^{(L)} = \Theta^{(L)} a^{(L)} $$
+$$ a^{(L)} = g(z^{(L)}) = h_{\Theta}(x)$$
+
+\subsection{Backpropagation}
+
+The $\delta$ for the rightmost layer $L$ is computed as:
+
+$$ \delta^{L} = a^{(L)} - y $$
+
+The further $\delta$ values are computed from right to left, down to $l=2$ (no $\delta$ for the input layer):
+
+$$ \delta^{(l)} = \delta^{(l+1)} \Theta^{(l)} g'(z^{(l)}) $$
+
+With (bias unit included in $a^{(l)}$):
+
+$$ g'(z^{(l)}) = a^{(l)} (1 - a^{(l)}) $$
+
+The $\Delta$ values are computed as ($a^{(l)}$ \textit{without} bias unit):
+
+$$ \Delta^{(l)} = (\delta^{(l+1)})^{T} a^{(l)} $$
+
+Finally, the gradients $D$ for $j \geq 1$ are computed as follows:
+
+$$ D^{(l)}_{ij} = \frac{1}{m}(\Delta^{(l)}_{ij} + \lambda \Theta^{(l)}_{ij}) $$
+
+And without regularization for $j = 0$, respectively:
+
+$$ D^{(l)}_{ij} = \frac{1}{m}(\Delta^{(l)}_{ij} $$
+
+Which is the partial derivative of the cost function:
+
+$$ \frac{\partial}{\partial \Theta^{(l)}_{ij}}J(\Theta) = D^{(l)}_{ij} $$
+
+\subsection{Gradient Checking}
+
+Estimate the derivative of $J(\Theta)$ with $\varepsilon \approx 10^{-4}$ (two-sided difference):
+
+$$ \frac{d}{d\Theta} J(\Theta) \approx \frac{J(\Theta+\varepsilon)-J(\Theta-\varepsilon)}{2\varepsilon} $$
+
+The result should only deviate from the $D$ values by a rounding margin.
+
+\subsection{Random initialization}
+
+When working with neural networks, $\Theta$ must be initialized to a random value symmetrically around $0$. A $(10 \times 11)$ matrix is initialized as follows (Octave):
+
+\begin{verbatim}
+init_epsilon = 0.1;
+Theta = rand(10,11) * (2 * init_epsilon) - init_epsilon;
+\end{verbatim}
+
+\end{document}

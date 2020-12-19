@@ -4,6 +4,11 @@
     \setmainfont{Liberation Serif}
     \setsansfont{Liberation Sans}
     \setmonofont{Liberation Mono}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{makecell}
 
 \setlength\parindent{0pt}
 
@@ -251,5 +256,44 @@ When working with neural networks, $\Theta$ must be initialized to a random valu
 init_epsilon = 0.1;
 Theta = rand(10,11) * (2 * init_epsilon) - init_epsilon;
 \end{verbatim}
+
+\section{Error Metrics}
+
+Confusion Matrix:
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\linewidth}{c c|c|c|}
+        & & \multicolumn{2}{c|}{actual} \\
+        & & 1 & 0 \\
+        \cline{1-4}
+        \multirow{2}{*}{\begin{turn}{90} prediction \end{turn}} & 1 & \makecell{true\\positive} & \makecell{false\\positive} \\
+        \cline{2-4}
+        & 0 & \makecell{false\\negative} & \makecell{true\\negative} \\
+        \cline{1-4}
+    \end{tabularx}
+\end{table}
+
+Precision:
+
+$$ P = \frac{tp}{tp+fp} $$
+
+Recall:
+
+$$ R = \frac{tp}{tp+fn} $$
+
+$F_{1}$ Score:
+
+$$ F_1 = 2 \frac{PR}{P+R} $$
+
+Some rules of thumb:
+
+\begin{itemize}
+    \item A higher classification threshold leads to a higher precision and a lower recall.
+    \item A lower classification threshold leads to a lower precision and a higher recall.
+    \item Many features can help to lower the bias.
+    \item Many training examples can help to lower the variance.
+    \item If a human expert can predict $y$ based on $x$, more training data can help.
+\end{itemize}
 
 \end{document}

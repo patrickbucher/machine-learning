@@ -9,6 +9,7 @@
 \usepackage{multicol}
 \usepackage{rotating}
 \usepackage{makecell}
+\usepackage{amsmath}
 
 \setlength\parindent{0pt}
 
@@ -294,6 +295,38 @@ Some rules of thumb:
     \item Many features can help to lower the bias.
     \item Many training examples can help to lower the variance.
     \item If a human expert can predict $y$ based on $x$, more training data can help.
+\end{itemize}
+
+\section{Support Vector Machines}
+
+The prediction yields $0$ and $1$ rather than probabilities. Cost Functions with Safety Margins (\textit{Large Margin Classifier}):
+
+$$ \text{cost}_0(\theta^T x^{(i)}): 1 \quad \text{if} \quad \theta^Tx \leq -1, \quad \text{else} \quad 0 $$
+$$ \text{cost}_1(\theta^T x^{(i)}): 1 \quad \text{if} \quad \theta^Tx \geq +1, \quad \text{else} \quad 0 $$
+
+Minimize $\theta$ ($C=\frac{1}{\lambda}$):
+
+$$ \displaystyle\min_{\theta} C \sum_{i=1}^m \Bigg[ y^{(i)} \text{cost}_1(\theta^T x^{(i)}) + (1-y^{(i)}) \text{cost}_0(\theta^T x^{(i)}) \Bigg] + \frac{1}{2} \sum_{i=1}^n \theta_j^{2} $$
+
+\subsection{Kernels}
+
+Calculate features depending on proximity (similarity function) using landmarks ($l^{(i)}=x^{(i)}$) with the \textit{Gaussian kernel} (squared euclidian distance $||x-l^{(i)}||^2$):
+
+$$ f_1 = \text{sim}(x,l^{(i)}) = \text{exp}\Bigg( - \frac{|| x - l^{(i)} ||^2}{2\sigma^2} \Bigg) $$
+
+\subsection{Choice of Parameters}
+
+\begin{itemize}
+    \item{$C$}
+        \begin{itemize}
+            \item large $C$: low bias, high variance (small $\lambda$)
+            \item small $C$: high bias, low variance (large $\lambda$)
+        \end{itemize}
+    \item{$\sigma^2$}
+        \begin{itemize}
+            \item large $\sigma^2$: high bias, low variance (flat gaussian curve)
+            \item small $\sigma^2$: low bias, high variance (abrupt gaussian curve)
+        \end{itemize}
 \end{itemize}
 
 \end{document}

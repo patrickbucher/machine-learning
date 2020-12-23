@@ -104,7 +104,8 @@ def main():
     plt.legend()
     plt.xlabel('height [m]')
     plt.ylabel('weight [kg]')
-    plt.savefig('clusters.svg')
+    plt.savefig('clusters.svg', dpi=300)
+    plt.savefig('clusters.png', dpi=300)
     plt.show()
 
 

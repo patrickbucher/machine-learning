@@ -1,33 +1,35 @@
 Athletes belonging to Cluster 1:
 
-                  Name  Height  Weight                  Sport
-3          Egan Bernal    1.75      60                Cycling
-26      Eliud Kipchoge    1.67      52  Long-Distance Running
-27  Haile Gebrselassie    1.64      56  Long-Distance Running
-28      Samuel Wanjiru    1.63      52  Long-Distance Running
-
-
-Athletes belonging to Cluster 2:
-
-                  Name  Height  Weight            Sport
-6        Arnold Forrer    1.94     118  Swiss Wrestling
-7           Joel Wicki    1.82     107  Swiss Wrestling
-8   Philipp Laimbacher    1.85     102  Swiss Wrestling
-9     Matthias Glarner    1.84     116  Swiss Wrestling
-10       Kilian Wenger    1.90     112  Swiss Wrestling
-17  Aksel Lund Svindal    1.89      97    Alpine Skiing
-
-
-Athletes belonging to Cluster 3:
-
                   Name  Height  Weight            Sport
 5     Christian Stucki    1.98     150  Swiss Wrestling
-11       Roger Brügger    1.98     135  Swiss Wrestling
 18   Kisenosato Yutaka    1.87     175   Sumo Wrestling
 19  Kakuryū Rikisaburō    1.86     161   Sumo Wrestling
 21   Kisenosato Yutaka    1.88     177   Sumo Wrestling
 24          Hakuhō Shō    1.92     151   Sumo Wrestling
-25    Harumafuji Kōhei    1.86     137   Sumo Wrestling
+
+
+Athletes belonging to Cluster 2:
+
+                Name  Height  Weight            Sport
+6      Arnold Forrer    1.94     118  Swiss Wrestling
+7         Joel Wicki    1.82     107  Swiss Wrestling
+9   Matthias Glarner    1.84     116  Swiss Wrestling
+10     Kilian Wenger    1.90     112  Swiss Wrestling
+11     Roger Brügger    1.98     135  Swiss Wrestling
+25  Harumafuji Kōhei    1.86     137   Sumo Wrestling
+
+
+Athletes belonging to Cluster 3:
+
+                  Name  Height  Weight                  Sport
+0           Jan Ulrich    1.83      73                Cycling
+1      Lance Armstrong    1.77      75                Cycling
+2         Chris Froome    1.86      69                Cycling
+3          Egan Bernal    1.75      60                Cycling
+4       Geraint Thomas    1.83      71                Cycling
+26      Eliud Kipchoge    1.67      52  Long-Distance Running
+27  Haile Gebrselassie    1.64      56  Long-Distance Running
+28      Samuel Wanjiru    1.63      52  Long-Distance Running
 
 
 Athletes belonging to Cluster 4:
@@ -40,15 +42,13 @@ Athletes belonging to Cluster 4:
 
 Athletes belonging to Cluster 5:
 
-               Name  Height  Weight          Sport
-0        Jan Ulrich    1.83      73        Cycling
-1   Lance Armstrong    1.77      75        Cycling
-2      Chris Froome    1.86      69        Cycling
-4    Geraint Thomas    1.83      71        Cycling
-12      Daniel Yule    1.87      87  Alpine Skiing
-13   Marco Odermatt    1.83      79  Alpine Skiing
-14        Beat Feuz    1.73      85  Alpine Skiing
-15     Didier Cuche    1.74      91  Alpine Skiing
-16    Didier Defago    1.83      88  Alpine Skiing
+                  Name  Height  Weight            Sport
+8   Philipp Laimbacher    1.85     102  Swiss Wrestling
+12         Daniel Yule    1.87      87    Alpine Skiing
+13      Marco Odermatt    1.83      79    Alpine Skiing
+14           Beat Feuz    1.73      85    Alpine Skiing
+15        Didier Cuche    1.74      91    Alpine Skiing
+16       Didier Defago    1.83      88    Alpine Skiing
+17  Aksel Lund Svindal    1.89      97    Alpine Skiing
 
 

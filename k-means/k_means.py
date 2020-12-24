@@ -29,7 +29,7 @@ def find_closest(point, centroids):
     return min_index
 
 
-def calculate_cost(points, clusters, centroids):
+def calculate_distortion(points, clusters, centroids):
     total_distances = 0.0
     m = len(points)
     for i in range(m):
@@ -76,7 +76,7 @@ def main():
                 if len(k_points) > 0:
                     centroids[k] = k_points.sum(axis=0) / k_points.shape[0]
 
-        cost = calculate_cost(bodies, clusters, centroids)
+        cost = calculate_distortion(bodies, clusters, centroids)
         if cost < lowest_cost:
             lowest_cost = cost
             best_centroids = centroids

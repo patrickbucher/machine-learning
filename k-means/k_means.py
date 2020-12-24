@@ -4,6 +4,12 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 
+def normalize(arr):
+    cols = arr.shape[1]
+    for c in range(cols):
+        arr[:,c] = (arr[:,c] - arr[:,c].mean()) / arr[:,c].std()
+    return arr
+
 def euclidian_distance(a, b):
     assert a.shape[0] == b.shape[0]
 
@@ -44,6 +50,7 @@ def main():
     # read and reduce data
     athletes = pd.read_csv('athletes.csv')
     bodies = athletes.loc[:,['Height', 'Weight']].to_numpy()
+    bodies = normalize(bodies)
 
     # K-means: initialize
     K = 5

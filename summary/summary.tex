@@ -425,6 +425,10 @@ The features being used should be normal distributed (plot with Octave: \texttt{
 
 \subsection{Multivariate Gaussian Distribution}
 
-TODO
+If single variables do not qualify a training example as an outlier, but only a combination thereof, using a multivariate Gaussian distribution can help to detect those correctly. With $\Sigma$ being the covariance matrix, $|\Sigma|$ its determinant, and $\Sigma^{-1}$ its inverse, the model is defined as:
+
+$$ p(x;\mu,\Sigma) = \frac{1}{\sqrt{2\pi}^n |\Sigma|^{\frac{1}{2}}} \text{exp} \Bigg( - \frac{1}{2} (x-\mu)^T \Sigma^{-1}(x-\mu) \Bigg) $$
+
+If the projection of a two-dimensional univariate Gaussian distribution from the top looks like a circle, a multivariate Gaussian distribution enables to model correlations (elliptic shape denoting the positive or negative correlation).
 
 \end{document}

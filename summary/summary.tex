@@ -345,4 +345,47 @@ Repeat the algorithm with different random initializations in order to find a gl
 
 $$ J(c^{(1)},c^{(2)},\dots,c^{(m)},\mu_1,\mu_2,\dots,\mu_K) = \frac{1}{m} \sum_{i=1}^{m} || x^{(i)} - \mu_{c^{(i)}} ||^2 $$
 
+\section{Principal Component Analysis}
+
+Idea: Reduce input matrix $x \in \mathbb{R}^{n}$ to $z \in \mathbb{R}^{k}$ with $k<n$ to reduce amount of features while retaining as much variance as possible to save storage, memory, processing power and for easier visualization. Algorithm:
+
+\begin{enumerate}
+    \item preprocess data: mean normalization and feature scaling: $x_j := \frac{x_j - \mu_j}{\sigma}$
+    \item compute covariance matrix $\Sigma=\frac{1}{m} \sum_{i=1}^{n} (x^{(i)})(x^{(i)})^T$ (Octave: \texttt{Sigma=(1/m)*X'*X;})
+    \item compute eigenvectors of $\Sigma$ (Octave: \texttt{[U,S,V]=svd(Sigma);})
+    \item take first $k$ vector (i.e. columns) of U (Octave: \texttt{Ureduce=U(:,1:k);})
+    \item compute $z=U_{\text{reduce}}^T x^{(i)} \in \mathbb{R}^k$ (Compression, Octave: \texttt{z=Ureduce'*X;})
+    \item reconstruct $x_{\text{approx}} \in \mathbb{R}^n$ from $z \in \mathbb{R}^k$: $x_{\text{approx}} = U_{\text{reduce}} z \approx x$ (Octave: \texttt{Xapprox=Ureduce*z})
+\end{enumerate}
+
+The bias unit $x_0=1$ is omitted.
+
+\subsection{Choosing the Number of Principal Components}
+
+Squared Projection Error:
+
+$$ \frac{1}{m} \sum_{i=1}^{m} || x^{(i)} - x^{(i)}_{\text{approx}} ||^2 $$
+
+Total variation in the data:
+
+$$ \frac{1}{m} \sum_{i=1}^{m} || x^{(i)} ||^2 $$
+
+In order to retain $99\%$ of the variance, choose $k = 1..(n-1)$ to be the smallest value, so that:
+
+$$ \frac{ \frac{1}{m} \sum_{i=1}^{m} || x^{(i)} - x^{(i)}_{\text{approx}} ||^2}{ { \frac{1}{m}} \sum_{i=1}^{m} || x^{(i)} ||^2} \leq 0.01$$
+
+Algorithm (for $k=1..(n-1)$):
+
+\begin{enumerate}
+    \item compute $U_{\text{reduce}}, z^{(1)}, \dots, z^{(m)}, x_{\text{approx}}^{(i)}, \dots, x_{\text{approx}}^{(m)}$
+    \item compute variance thus retained (see formula above)
+    \item finish if variance $\leq$ threshold
+\end{enumerate}
+
+In Octave, the \texttt{S} in \texttt{[U,S,V]=svd(Sigma)} is a diagonal matrix that can be used to compute the variance retained:
+
+$$ 1 - \frac{\sum_{i=1}^k S_{ii}}{\sum_{i=1}^n S_{ii}} \leq 0.01 \quad \text{or} \quad \frac{\sum_{i=1}^k S_{ii}}{\sum_{i=1}^n S_{ii}} \geq 0.99 $$
+
+PCA should not be used to address the issue of overfitting; use regularization instead. PCA should only be introduced if really needed.
+
 \end{document}

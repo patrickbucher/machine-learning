@@ -388,4 +388,43 @@ $$ 1 - \frac{\sum_{i=1}^k S_{ii}}{\sum_{i=1}^n S_{ii}} \leq 0.01 \quad \text{or}
 
 PCA should not be used to address the issue of overfitting; use regularization instead. PCA should only be introduced if really needed.
 
+\section{Anomaly Detection}
+
+Given a dataset $\{ x^{(1)},x^{(2)},\dots,x^{(m)} \}$, $x_{\text{test}}$ is anomalous if:
+
+$$ p(x_{\text{test}}) < \varepsilon $$
+
+or \textit{not} anomalous (i.e. normal) if:
+
+$$ p(x_{\text{test}}) \geq \varepsilon $$
+
+With $x \sim \mathcal{N}(\mu,\sigma^2)$ (Gaussian):
+
+$$ p(x;\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma} \text{exp}\Bigg(- \frac{(x-\mu)^2}{2\sigma^2} \Bigg)$$
+
+The parameters $\mu$ and $\sigma^2$ can be guessed from the dataset:
+
+$$ \mu_j = \frac{1}{m} \sum_{i=1}^{m} x_j^{(i)} \quad \sigma^2_j = \frac{1}{m} \sum_{i=1}^{m} (x_j^{(i)} - \mu_j)^2 $$
+
+Given an \textit{unlabeled} traning set $x \in \mathbb{R}^n, x \sim \mathcal{N}(\mu,\sigma^2)$:
+
+$$ p(x) = p(x_1;\mu_1,\sigma_1^2) p(x_2;\mu_2,\sigma_2^2) \dots p(x_n;\mu_n,\sigma_n^2) = \prod_{j=1}^{n} p(x_i;\mu_i,\sigma_i^2) = \prod_{j=1}^{n} \frac{e^{- \frac{(x_j-\mu_j)^2}{2\sigma_j^2}}}{\sqrt{2\pi}\sigma_j} $$
+
+Algorithm:
+
+\begin{enumerate}
+    \item choose indicative features
+    \item fit parameters $\mu_1,\mu_2,\dots,\mu_n$ and  $\sigma_1^2,\sigma_2^2,\dots,\sigma_n^2$
+    \item calculate $p(x)$
+    \item mark as anomaly if $p(x) <  \varepsilon$
+\end{enumerate}
+
+For the evaluation using labeled training data, move all anomalous ($y=1$) examples to the cross validation and test set; only retain normal examples ($y=0$) in the training set (split usually 60/20/20). Evaluate using precision, recall and F1 Score (accuracy is not indicative due to the skewed distribution of $y$). Consider finding parameter $\varepsilon$ using cross validation (usually $0.05$ or $0.01$).
+
+The features being used should be normal distributed (plot with Octave: \texttt{hist(x, nBins)}). Consider deriving new ($x_3 = \frac{x_1}{x_2}$) or transforming existing features ($x_i = log(x_i + C)$) in order to get normally distributed features.
+
+\subsection{Multivariate Gaussian Distribution}
+
+TODO
+
 \end{document}

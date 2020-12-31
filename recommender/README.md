@@ -40,7 +40,7 @@ The model is trained using the genre indications:
 The trained model is then used to fill in the missing ratings (movies already
 rated above are displayed as `NaN`):
 
-    Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
+                         Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
     0                  Titanic    NaN  NaN    NaN   NaN    NaN    NaN     3.0      4.5
     1        Lord of the Rings    NaN  NaN    NaN   NaN    NaN    NaN     4.5      1.5
     2            The Godfather    NaN  NaN    NaN   NaN    NaN    NaN     4.5      3.5

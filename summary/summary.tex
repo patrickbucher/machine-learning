@@ -488,17 +488,17 @@ $$ R =
 \quad
 \text{and}
 \quad
-\theta \in \mathbb{R}^{n_{\text{users}} \times k_{\text{genres}}} $$
+\theta \in \mathbb{R}^{n_{\text{users}} \times K_{\text{genres}}} $$
 
 $\theta$ is randomly initialized and contains the user's genre preferences to be learned.
 
-Gradient Descent (without regularization):
+For each user $j$ and each genre $k$, learn $\theta^{j}$:
 
-$$ \theta := - \alpha (X \theta^T - Y) X $$
+$$ \theta^{(j)}_{k} := \theta^{(j)} - \alpha \sum_{i:R(i,j)=1} \Big( (\theta^{(j)})^{T}X^{(i)} - Y^{(i,j)} \Big) X_{k}^{(i)} + \lambda \theta_{k}^{(i)}$$
 
 Cost Function (without regularization):
 
-$$ J = \frac{1}{2} \sum_{i=1}^{m_{\text{movies}}} (X \theta^T - Y)^2 $$
+$$ J = \frac{1}{2} \sum_{j=1}^{n_{\text{users}}} \sum_{i:R(i,j)=1} \Big( (\theta^{(j)})^{T}X^{(i)} - Y^{(i,j)} \Big)^2 + \frac{\lambda}{2} \sum_{j=1}^{n_{\text{users}}} \sum_{k=1}^{K} (\theta_k^{(j)})^2 $$
 
 Notice that only entries with $R(i,j)=1$ must be considered for those calculations.
 

@@ -34,21 +34,21 @@ The model is trained using the genre indications:
 
 The trained model is then used to fill in the missing ratings:
 
-                     Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
-0                  Titanic    4.5  3.0    4.5   3.0    4.5    3.0     3.0      4.5
-1        Lord of the Rings    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
-2            The Godfather    3.5  4.5    3.5   4.5    3.5    4.5     4.5      3.5
-3                  Vertigo    4.0  3.0    4.0   3.0    4.0    3.0     3.0      4.0
-4              Rear Window    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
-5       Brokeback Mountain    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
-6         Dawn of the Dead    1.5  5.0    2.0   5.0    1.5    5.0     5.0      1.5
-7            Hateful Eight    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
-8             Pulp Fiction    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
-9   Breakfast at Tiffany's    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
-10            Notting Hill    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
-11                   Speed    3.0  5.0    3.0   5.0    3.0    5.0     5.0      3.0
-12           Jurassic Park    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
-13       Prince of Zamunda    4.5  1.5    4.5   1.5    4.5    1.5     1.5      4.5
-14               The Joker    2.0  4.0    2.0   4.0    2.0    4.0     4.0      2.0
-15                Downfall    3.5  4.5    3.5   4.5    3.5    4.5     4.5      3.5
+                         Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
+    0                  Titanic    4.5  3.0    4.5   3.0    4.5    3.0     3.0      4.5
+    1        Lord of the Rings    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
+    2            The Godfather    3.5  4.5    3.5   4.5    3.5    4.5     4.5      3.5
+    3                  Vertigo    4.0  3.0    4.0   3.0    4.0    3.0     3.0      4.0
+    4              Rear Window    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
+    5       Brokeback Mountain    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
+    6         Dawn of the Dead    1.5  5.0    2.0   5.0    1.5    5.0     5.0      1.5
+    7            Hateful Eight    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
+    8             Pulp Fiction    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
+    9   Breakfast at Tiffany's    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
+    10            Notting Hill    5.0  1.0    5.0   1.5    5.0    1.0     1.0      5.0
+    11                   Speed    3.0  5.0    3.0   5.0    3.0    5.0     5.0      3.0
+    12           Jurassic Park    1.5  4.5    1.5   4.5    1.5    4.5     4.5      1.5
+    13       Prince of Zamunda    4.5  1.5    4.5   1.5    4.5    1.5     1.5      4.5
+    14               The Joker    2.0  4.0    2.0   4.0    2.0    4.0     4.0      2.0
+    15                Downfall    3.5  4.5    3.5   4.5    3.5    4.5     4.5      3.5
 

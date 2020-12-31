@@ -9,7 +9,7 @@ def round_to(array, granularity):
 
 
 def main():
-    df = pd.read_csv('movies_content.csv')
+    df = pd.read_csv('movies.csv')
     ratings = df.iloc[:,1:7].to_numpy()
     genres = df.iloc[:,7:].to_numpy()
 

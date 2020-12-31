@@ -2,8 +2,9 @@
 
 see [`content_based.py`](content_based.py)
 
-The training data (`movies_content.csv`) contains 15 movies rated by 6 users.
-The two right-most columns indicate the genre (Action, Romance) of the movie.
+The training data ([`movies_content.csv`](movies_content.csv)) contains 15
+movies rated by 6 users.  The two right-most columns indicate the genre
+(Action, Romance) of the movie.
 
                          Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
     0                  Titanic    4.5  2.5    5.0   2.0    4.5    1.5     3.0      4.5
@@ -37,7 +38,7 @@ The model is trained using the genre indications:
     cost =    7.846
 
 The trained model is then used to fill in the missing ratings (movies already
-rated above are displayed as NaN):
+rated above are displayed as `NaN`):
 
     Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
     0                  Titanic    NaN  NaN    NaN   NaN    NaN    NaN     3.0      4.5

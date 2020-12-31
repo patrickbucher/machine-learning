@@ -13,7 +13,7 @@ def main():
     ratings = df.iloc[:,1:7].to_numpy()
     genres = df.iloc[:,7:].to_numpy()
 
-    print('before')
+    print('Training Data')
     print(df)
 
     m_movies, n_users = ratings.shape
@@ -29,7 +29,7 @@ def main():
     iters = int(1e2)
     batch = iters / 10
 
-    print('training')
+    print('\nTraining')
     for i in range(iters):
         pred = genres.dot(theta.T)
 
@@ -41,11 +41,11 @@ def main():
 
         cost = 1/2 * np.sum(diff ** 2)
         if i % batch == 0:
-            print(f'J = {cost:8.3f}')
+            print(f'cost = {cost:8.3f}')
 
     predictions = round_to(genres.dot(theta.T), 0.5)
     df.iloc[:,1:7] = predictions
-    print('after')
+    print('\nPredictions')
     print(df)
 
 

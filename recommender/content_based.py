@@ -43,7 +43,7 @@ def main():
         if i % batch == 0:
             print(f'cost = {cost:8.3f}')
 
-    % = round_to(genres.dot(theta.T), 0.1)
+    predictions = round_to(genres.dot(theta.T), 0.1)
     predictions[~not_rated] = np.nan
     df.iloc[:,1:7] = predictions
     print('\nPredictions')

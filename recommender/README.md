@@ -3,7 +3,7 @@
 see [`content_based.py`](content_based.py)
 
 The training data ([`movies.csv`](movies.csv)) contains 15 movies rated by 6
-users.  The two right-most columns indicate the genre (Action, Romance) of the
+users. The two right-most columns indicate the genre (Action, Romance) of the
 movie.
 
                          Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
@@ -58,3 +58,62 @@ rated above are displayed as `NaN`):
     14               The Joker    2.1  4.0    2.2   4.1    2.1    4.1     4.0      2.0
     15                Downfall    3.6  4.5    3.7   4.6    3.6    4.6     4.5      3.5
 
+# Collaborative Filtering
+
+see [`collaborative_filtering.py`](collaborative_filtering.py)
+
+The training data ([`movies.csv`](movies.csv)) contains 15 movies rated by 6
+users. The two right-most columns indicate the genre (Action, Romance), which
+are _not relevant_ for the collaborative filtering approach.
+
+                         Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
+    0                  Titanic    4.5  2.5    5.0   2.0    4.5    1.5     3.0      4.5
+    1        Lord of the Rings    1.5  4.5    2.5   4.0    1.0    5.0     4.5      1.5
+    2            The Godfather    3.5  4.5    3.0   5.0    4.0    5.0     4.5      3.5
+    3                  Vertigo    4.5  3.5    4.0   4.0    5.0    4.0     3.0      4.0
+    4              Rear Window    1.5  5.0    2.0   4.5    2.0    5.0     4.5      1.5
+    5       Brokeback Mountain    5.0  1.0    5.0   1.0    5.0    1.0     1.0      5.0
+    6         Dawn of the Dead    1.0  5.0    1.0   5.0    1.0    4.5     5.0      1.5
+    7            Hateful Eight    1.5  4.5    2.0   5.0    2.5    4.5     4.5      1.5
+    8             Pulp Fiction    2.0  4.5    1.5   5.0    1.5    5.0     4.5      1.5
+    9   Breakfast at Tiffany's    5.0  1.0    5.0   1.0    5.0    1.0     1.0      5.0
+    10            Notting Hill    NaN  NaN    5.0   2.0    5.0    1.5     1.0      5.0
+    11                   Speed    3.5  5.0    NaN   NaN    2.5    4.5     5.0      3.0
+    12           Jurassic Park    1.5  4.5    2.0   4.0    NaN    NaN     4.5      1.5
+    13       Prince of Zamunda    NaN  NaN    NaN   NaN    NaN    NaN     1.5      4.5
+    14               The Joker    NaN  NaN    NaN   NaN    NaN    NaN     4.0      2.0
+    15                Downfall    NaN  NaN    NaN   NaN    NaN    NaN     4.5      3.5
+
+The model is trained _without_ the genre indications, which are estimated instead:
+
+    cost =  269.115
+    cost =   65.519
+    cost =   23.397
+    cost =    4.401
+    cost =    2.809
+    cost =    2.502
+    cost =    2.330
+    cost =    2.181
+    cost =    2.037
+    cost =    1.895
+
+The trained model is then used to fill in the missing ratings (movies already
+rated above are displayed as `NaN`):
+
+                         Movie  Alice  Bob  Carol  Dave  Erica  Frank  Action  Romance
+    0                  Titanic    NaN  NaN    NaN   NaN    NaN    NaN     3.0      4.5
+    1        Lord of the Rings    NaN  NaN    NaN   NaN    NaN    NaN     4.5      1.5
+    2            The Godfather    NaN  NaN    NaN   NaN    NaN    NaN     4.5      3.5
+    3                  Vertigo    NaN  NaN    NaN   NaN    NaN    NaN     3.0      4.0
+    4              Rear Window    NaN  NaN    NaN   NaN    NaN    NaN     4.5      1.5
+    5       Brokeback Mountain    NaN  NaN    NaN   NaN    NaN    NaN     1.0      5.0
+    6         Dawn of the Dead    NaN  NaN    NaN   NaN    NaN    NaN     5.0      1.5
+    7            Hateful Eight    NaN  NaN    NaN   NaN    NaN    NaN     4.5      1.5
+    8             Pulp Fiction    NaN  NaN    NaN   NaN    NaN    NaN     4.5      1.5
+    9   Breakfast at Tiffany's    NaN  NaN    NaN   NaN    NaN    NaN     1.0      5.0
+    10            Notting Hill    5.0  1.9    NaN   NaN    NaN    NaN     1.0      5.0
+    11                   Speed    NaN  NaN    3.2   4.8    NaN    NaN     5.0      3.0
+    12           Jurassic Park    NaN  NaN    NaN   NaN    1.6    4.0     4.5      1.5
+    13       Prince of Zamunda    1.7  3.2    1.9   3.1    2.0    3.6     1.5      4.5
+    14               The Joker    1.1  2.9    1.2   2.9    1.2    3.0     4.0      2.0
+    15                Downfall    2.8  2.2    2.9   2.0    2.9    2.2     4.5      3.5

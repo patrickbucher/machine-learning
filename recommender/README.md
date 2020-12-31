@@ -1,3 +1,7 @@
+# Content-Based Recommender
+
+see [`content_based.py`](content_based.py)
+
 The training data (`movies_content.csv`) contains 15 movies rated by 6 users.
 The two right-most columns indicate the genre (Action, Romance) of the movie.
 

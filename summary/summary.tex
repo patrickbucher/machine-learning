@@ -508,6 +508,25 @@ $$ X \theta^T $$
 
 \subsection{Collaborative Filtering}
 
-TODO
+If no categorization is available, the matrix $X$ can be learned alongside $\theta$. The matrices $X$  and $\theta$ must be initialized to small random values. The values need to be updated \textit{simultaneously}, i.e. use the last iteration's value of $X$ for computing the new value of $\theta$:
+
+$$ x_k^{(i)} := x_k^{(i)} - \alpha \Bigg( \sum_{j:r(i,j)=1} \Big( (\theta^{(j)})^T x^{(i)} - y^{(i,j)}\Big) \theta_k^{(j)} + \lambda x_k^{(i)} \Bigg) $$
+$$ \theta_k^{(j)} := \theta_k^{(j)} - \alpha \Bigg( \sum_{i:r(i,j)=1} \Big( (\theta^{(j)})^T x^{(i)} - y^{(i,j)}\Big) x_k^{(j)} + \lambda \theta_k^{(i)} \Bigg) $$
+
+For a user with parameters $\theta^{(j)}$ and a movie with learned features $X$, predict a rating as follows:
+
+$$ (\theta^{(j)})^T (x^{(i)}) $$
+
+\subsubsection{Similar Items}
+
+The similarity of the items $i$ and $j$ can be calculated using the learned parameters $X$. The smaller the distance, the more similar the items are:
+
+$$ || x^{(i)} - x^{(j)} || $$
+
+\subsubsection{Additional Rows}
+
+A new row, i.e. a new user, must be initialized with some value. Otherwise all the predictions will be equal to $0$. A matrix $\mu$ the average of the items can be used. The average has to be subtracted from the predictions ($Y-\mu$) for learning, and added back for predictions:
+
+$$ (\theta^{(j)})^T x^{(i)} + \mu^{(i)} $$
 
 \end{document}
